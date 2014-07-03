@@ -122,7 +122,7 @@ void testApp::draw(){
     ofSetColor(225);
 
     int realTime = (realHour * 3600) + (realMinute * 60) + realSecond;
-    int schedTime = (hour * 3600) + (minute * 60) + realSecond;
+    int schedTime = (hour * 3600) + (minute * 60) + second;
     int secondDiff = (schedTime - realTime) % 60;
     int minuteDiff = (schedTime - realTime) / 60;
     int hourDiff = (schedTime - realTime) / 3600;
