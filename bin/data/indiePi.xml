@@ -1,0 +1,9 @@
+<INDIEPI>
+	<START_TIME>
+        <HOUR>2</HOUR>
+        <MINUTE>28</MINUTE>
+        <SECOND>0</SECOND>
+     </START_TIME>
+     <VIDEO_PATH>/home/pi/openFrameworks/addons/ofxOMXPlayer/video/bbb_1080p.mov</VIDEO_PATH>
+</INDIEPI>
+
