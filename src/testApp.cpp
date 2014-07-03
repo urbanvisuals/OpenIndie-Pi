@@ -65,7 +65,7 @@ void testApp::setup(){
     
 	//load a monospaced font
 	//which we will use to show part of the xml structure
-	TTF.loadFont("mono.ttf", 20 );
+	TTF.loadFont("mono.ttf", 48 );
     
     ofDisableAntiAliasing();
     
@@ -121,42 +121,46 @@ void testApp::draw(){
 
     ofSetColor(225);
 
-    int realTime = (realHour * 60) + realMinute;
-    int schedTime = (hour * 60) + minute;
-    int minuteDiff = schedTime % realTime;
-    int hourDiff = schedTime / realTime;
+    int realTime = (realHour * 3600) + (realMinute * 60) + realSecond;
+    int schedTime = (hour * 3600) + (minute * 60) + realSecond;
+    int secondDiff = (schedTime - realTime) % 60;
+    int minuteDiff = (schedTime - realTime) / 60;
+    int hourDiff = (schedTime - realTime) / 3600;
     
+    string timer;
     
-	if (schedTime - realTime >= 120){
-    	//ofBackground(255,0,0);  // Sets the background color to green
         openIndieBG.draw(0,0);
-        string timer = "THE MOVIE WILL START IN ";
+        timer = "THE MOVIE WILL START IN ";
         timer += ofToString(hourDiff);
         timer += " HOURS AND ";
         timer += ofToString(minuteDiff);
         timer += " MINUTES ";
-    	TTF.drawString(timer, 400, 600);
     }
     
-	if (schedTime - realTime >= 60){
-    	//ofBackground(255,255,0);  // Sets the background color to green
+	if (schedTime - realTime < (7200)){
         openIndieBG.draw(0,0);
-        string timer = "THE MOVIE WILL START IN ";
+        timer = "THE MOVIE WILL START IN ";
         timer += ofToString(hourDiff);
         timer += " HOUR AND ";
         timer += ofToString(minuteDiff);
         timer += " MINUTES ";
-    	TTF.drawString(timer, 400, 600);
     }
     
 
-	if (schedTime - realTime > 0){
-    	//ofBackground(0,255,0);  // Sets the background color to green
+	if (schedTime - realTime < 3600){
         openIndieBG.draw(0,0);
-        string timer = "THE MOVIE WILL START IN ";
+        timer = "THE MOVIE WILL START IN ";
         timer += ofToString(minuteDiff);
-        timer += " MINUTES ";
-    	TTF.drawString(timer, 400, 600);
+        timer += " MINUTES AND ";
+        timer += ofToString(secondDiff);
+        timer += " SECONDS ";
+    }
+    
+    	if (schedTime - realTime < 60){
+        openIndieBG.draw(0,0);
+        timer = "THE MOVIE WILL START IN ";
+        timer += ofToString(secondDiff);
+        timer += " SECONDS ";
     }
     
     // time and scheduled times are the same!
@@ -170,12 +174,12 @@ void testApp::draw(){
 	if (schedTime - realTime < 0){
         //ofBackground(0, 0, 255);
         openIndieBG.draw(0,0);
-        string timer = "THE MOVIE HAS PLAYED.";
+        timer = "THE MOVIE HAS PLAYED.";
 
-    	TTF.drawString(timer, 400, 600);
     }
 
-    
+     	TTF.drawString(timer, 400, 600);
+   
 	
 	//omxPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
 	
@@ -189,7 +193,7 @@ void testApp::draw(){
     string info = "THE MOVIE STARTS AT " +ofToString(hour) ;
     info += ":" +ofToString(minute) + "\n";
     info += "THE CURRENT TIME IS "+ofToString(realHour) ;
-    info += ":" + ofToString(realMinute)+"\n\n";
+    info += ":" + ofToString(realMinute)+ ":" + ofToString(realSecond)+"\n\n";
 
     //info += "FPS: "+ofToString(ofGetFrameRate(),0)+"\n\n";
    
