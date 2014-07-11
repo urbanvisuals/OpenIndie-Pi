@@ -247,6 +247,9 @@ void testApp::onVideoEnd(ofxOMXPlayerListenerEventData& e)
     isPlaying = false;
 }
 
+void onVideoLoop(ofxOMXPlayerListenerEventData& e){
+	
+}
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){
 
