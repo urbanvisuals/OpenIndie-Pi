@@ -23,7 +23,7 @@
  
  */
 
-class testApp : public ofBaseApp, public SSHKeyListener{
+class testApp : public ofBaseApp, public ofxOMXPlayerListener, public SSHKeyListener{
 
 	public:
 
