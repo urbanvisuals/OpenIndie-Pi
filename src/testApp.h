@@ -53,6 +53,7 @@ class testApp : public ofBaseApp, public SSHKeyListener{
 
 		ofXml XML;
 		ofTrueTypeFont TTF;
+		ofTrueTypeFont TTFSmall;
 
 		string xmlStructure;
 		string message;
@@ -63,9 +64,9 @@ class testApp : public ofBaseApp, public SSHKeyListener{
 		int lineCount;
 		int lastTagNumber;
     
-    		int realHour;
-    		int realMinute;
-    		int realSecond;
+    int realHour;
+    int realMinute;
+    int realSecond;
 
 		float hour;
 		float minute;
@@ -73,6 +74,6 @@ class testApp : public ofBaseApp, public SSHKeyListener{
 
 		bool isPlaying;
     
-    		string vidPath;
+    string vidPath;
 };
 

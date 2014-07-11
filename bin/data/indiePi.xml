@@ -1,9 +1,10 @@
 <INDIEPI>
 	<START_TIME>
-        <HOUR>2</HOUR>
-        <MINUTE>28</MINUTE>
+        <HOUR>16</HOUR>
+        <MINUTE>3</MINUTE>
         <SECOND>0</SECOND>
-     </START_TIME>
-     <VIDEO_PATH>/home/pi/openFrameworks/addons/ofxOMXPlayer/video/bbb_1080p.mov</VIDEO_PATH>
+     </START_TIME>     
+     <VIDEO_PATH>/home/pi/openFrameworks/apps/CANApps/videos/TGBH.1080p.mp4</VIDEO_PATH>
+     <VIDEO2_PATH>/home/pi/openFrameworks/apps/CANApps/videos/TGBH.1080p.mp4</VIDEO2_PATH>
 </INDIEPI>
 

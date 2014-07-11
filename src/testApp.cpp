@@ -3,6 +3,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    ofLogToFile("logFile.txt", true);
 	ofBackground(255,255,255);
     ofDisableAntiAliasing();
 	//-----------
@@ -65,7 +66,8 @@ void testApp::setup(){
     
 	//load a monospaced font
 	//which we will use to show part of the xml structure
-	TTF.loadFont("mono.ttf", 48 );
+    TTF.loadFont("mono.ttf", 40 );
+    TTFSmall.loadFont("mono.ttf", 20 );
     
     ofDisableAntiAliasing();
     
@@ -119,67 +121,72 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
+    if (!isPlaying){
+
     ofSetColor(225);
 
-    int realTime = (realHour * 3600) + (realMinute * 60) + realSecond;
-    int schedTime = (hour * 3600) + (minute * 60) + second;
+    long int realTime = (realHour * 3600) + (realMinute * 60) + realSecond;
+    long int schedTime = (hour * 3600) + (minute * 60) + second;
     int secondDiff = (schedTime - realTime) % 60;
     int minuteDiff = (schedTime - realTime) / 60;
     int hourDiff = (schedTime - realTime) / 3600;
     
-    string timer;
+    openIndieBG.draw(0,0);
+
     
-        openIndieBG.draw(0,0);
-        timer = "THE MOVIE WILL START IN ";
+	if (schedTime - realTime >= 7200){
+    	//ofBackground(255,0,0);  // Sets the background color to green
+        string timer = "THE MOVIE WILL START IN ";
         timer += ofToString(hourDiff);
         timer += " HOURS AND ";
         timer += ofToString(minuteDiff);
         timer += " MINUTES ";
+    	TTF.drawString(timer, 200, 600);
     }
     
-	if (schedTime - realTime < (7200)){
-        openIndieBG.draw(0,0);
-        timer = "THE MOVIE WILL START IN ";
+	else if (schedTime - realTime > 3600){
+    	//ofBackground(255,255,0);  // Sets the background color to green
+        string timer = "THE MOVIE WILL START IN ";
         timer += ofToString(hourDiff);
         timer += " HOUR AND ";
         timer += ofToString(minuteDiff);
         timer += " MINUTES ";
+    	TTF.drawString(timer, 200, 600);
     }
     
+    else if ((schedTime - realTime) > 60){
 
-	if (schedTime - realTime < 3600){
-        openIndieBG.draw(0,0);
-        timer = "THE MOVIE WILL START IN ";
+        string timer = "THE MOVIE WILL START IN ";
         timer += ofToString(minuteDiff);
         timer += " MINUTES AND ";
         timer += ofToString(secondDiff);
         timer += " SECONDS ";
+        TTF.drawString(timer, 200, 600);
+
     }
-    
-    	if (schedTime - realTime < 60){
-        openIndieBG.draw(0,0);
-        timer = "THE MOVIE WILL START IN ";
+
+	else if (schedTime - realTime > 0 ){
+    	//ofBackground(0,255,0);  // Sets the background color to green
+        string timer = "THE MOVIE WILL START IN ";
         timer += ofToString(secondDiff);
         timer += " SECONDS ";
+    	TTF.drawString(timer, 200, 600);
     }
     
     // time and scheduled times are the same!
-	if (schedTime - realTime == 0){
+	else if (schedTime - realTime == 0){
         //ofBackground(255, 255, 255);
-        if (!isPlaying){ 
-            startMovie();
-        }
+        startMovie();
     }
     
-	if (schedTime - realTime < 0){
+	else {
         //ofBackground(0, 0, 255);
-        openIndieBG.draw(0,0);
-        timer = "THE MOVIE HAS PLAYED.";
+        string timer = "THE MOVIE HAS PLAYED.";
 
+    	TTF.drawString(timer, 200, 600);
     }
 
-     	TTF.drawString(timer, 400, 600);
-   
+    
 	
 	//omxPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
 	
@@ -193,12 +200,13 @@ void testApp::draw(){
     string info = "THE MOVIE STARTS AT " +ofToString(hour) ;
     info += ":" +ofToString(minute) + "\n";
     info += "THE CURRENT TIME IS "+ofToString(realHour) ;
-    info += ":" + ofToString(realMinute)+ ":" + ofToString(realSecond)+"\n\n";
+    info += ":" + ofToString(realMinute)+"\n\n";
 
     //info += "FPS: "+ofToString(ofGetFrameRate(),0)+"\n\n";
    
     
-    TTF.drawString(info, 400, 800);
+    TTFSmall.drawString(info, 400, 800);
+}
 	
 }
 
@@ -215,7 +223,7 @@ void testApp::startMovie(){
     settings.enableAudio = true;        //default true, save resources by disabling
     //settings.doFlipTexture = true;        //default false
     
-    
+    ofLogVerbose() << "MOVIE STARTED";
     //so either pass in the settings
     omxPlayer.setup(settings);
 
@@ -234,7 +242,8 @@ void testApp::onCharacterReceived(SSHKeyListenerEventData& e)
 void testApp::onVideoEnd(ofxOMXPlayerListenerEventData& e)
 {
     ofLogVerbose(__func__) << " RECEIVED";
-    //isPlaying = false;
+    omxPlayer.close();
+    isPlaying = false;
 }
 
 //--------------------------------------------------------------
@@ -245,6 +254,7 @@ void testApp::keyPressed  (int key){
     {
         case 'e':
         {
+            ofLogVerbose() << "e pressed!";
             break;
         }
         case 'x':
