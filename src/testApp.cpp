@@ -5,7 +5,7 @@
 void testApp::setup(){
     ofLogToFile("logFile.txt", true);
     ofSetLogLevel(OF_LOG_VERBOSE);
-	ofBackground(255,255,255);
+    ofBackground(255,255,255);
     ofDisableAntiAliasing();
 	//-----------
 	//the string is printed at the top of the app
