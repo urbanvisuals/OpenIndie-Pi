@@ -7,4 +7,4 @@ This file relies on video files not included. Change the location of the video f
 
 Timezones are not implemented yet....
 
-
+Oh, and it requires openFrameworks.
