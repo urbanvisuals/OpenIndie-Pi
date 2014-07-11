@@ -43,8 +43,11 @@ class testApp : public ofBaseApp, public ofxOMXPlayerListener, public SSHKeyList
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);		
 
-		void onVideoEnd(ofxOMXPlayerListenerEventData& e);
-
+		//ofxOMXPlayerListener inheritance
+		void onVideoEnd(ofxOMXPlayerListenerEventData& e){};
+		void onVideoLoop(ofxOMXPlayerListenerEventData& e){};
+		
+		//allows key commands via Shell
 		void onCharacterReceived(SSHKeyListenerEventData& e);
 		ConsoleListener consoleListener;
 
