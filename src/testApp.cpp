@@ -4,6 +4,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
     ofLogToFile("logFile.txt", true);
+    ofSetLogLevel(OF_LOG_VERBOSE);
 	ofBackground(255,255,255);
     ofDisableAntiAliasing();
 	//-----------
